@@ -838,6 +838,34 @@
       .hero h1 { font-size: 2.4rem; }
       .service-card { padding: 2rem 1.5rem; }
     }
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: rgba(6,15,30,0.98);
+      backdrop-filter: blur(14px);
+      z-index: 799;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu ul { list-style: none; padding: 1rem 0; }
+    .mobile-menu ul li { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .mobile-menu ul li a {
+      display: block;
+      padding: 1rem 2rem;
+      color: var(--text-2);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .mobile-menu ul li a:hover { color: var(--teal); }
+
     /* ─── CONTACT FORM ─── */
     .contact-form { width: 100%; display: flex; flex-direction: column; gap: 1rem; }
     .form-row { display: flex; gap: 1rem; }
@@ -861,7 +889,16 @@
       <li><a href="#why">Why Pharos Property Advisors</a></li>
       <li><a href="#contact" class="nav-cta">Contact Us</a></li>
     </ul>
-    <button class="nav-hamburger" aria-label="Open menu" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true')">
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#purpose" onclick="closeMobileMenu()">Our Purpose</a></li>
+        <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+        <li><a href="#serve" onclick="closeMobileMenu()">Who We Serve</a></li>
+        <li><a href="#why" onclick="closeMobileMenu()">Why Pharos</a></li>
+        <li><a href="#contact" onclick="closeMobileMenu()">Contact Us</a></li>
+      </ul>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
     </button>
   </nav>
@@ -1077,6 +1114,15 @@
   </footer>
 
   <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.remove('open');
+    }
+
     // Scroll-reveal via IntersectionObserver
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
